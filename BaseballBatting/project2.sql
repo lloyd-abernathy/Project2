@@ -1,5 +1,6 @@
 -- Josh Ludwig, Lloyd Abernathy
 -- joshua.r.ludwig@vanderbilt.edu, 
+-- lloyd.r.abernathy@vanderbilt.edu
 -- Project 2
 
 DROP DATABASE IF EXISTS baseballdb;
@@ -45,6 +46,11 @@ LOAD DATA LOCAL INFILE 'C:/Users/ludwj/Downloads/mlbbatting1901-2021.csv'  INTO 
 CHARACTER SET latin1 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES;
+
+--LOAD DATA LOCAL INFILE 'C:/Users/lloydabernathy/Downloads/mlbbatting1901-2021.csv'  INTO TABLE megatable 
+--CHARACTER SET latin1 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+--LINES TERMINATED BY '\r\n'
+--IGNORE 1 LINES;
 
 SELECT *
 FROM megatable
