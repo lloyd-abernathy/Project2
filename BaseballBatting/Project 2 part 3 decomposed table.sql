@@ -17,8 +17,9 @@ FROM
 
 DROP TABLE IF EXISTS common_player_stats_by_game;
 CREATE TABLE IF NOT EXISTS common_player_stats_by_game(
-	player_ID VARCHAR(20) PRIMARY KEY,
-    game_date VARCHAR(20) PRIMARY KEY,
+	player_ID VARCHAR(20),
+    game_date VARCHAR(20),
+    player_team CHAR(3),
 	opp_team CHAR(3),
     game_result VARCHAR(10),
 	plate_app TINYINT UNSIGNED,
@@ -32,12 +33,14 @@ CREATE TABLE IF NOT EXISTS common_player_stats_by_game(
     base_on_balls TINYINT UNSIGNED,
     int_base_on_balls TINYINT UNSIGNED,
     strikeouts TINYINT UNSIGNED,
-    hit_by_pitch TINYINT UNSIGNED
+    hit_by_pitch TINYINT UNSIGNED,
+    PRIMARY KEY (player_ID, game_date)
 );
 
 INSERT INTO common_player_stats_by_game(
 	player_ID,
     game_date,
+    player_team,
     opp_team,
     game_result,
     plate_app,
@@ -56,6 +59,7 @@ INSERT INTO common_player_stats_by_game(
 SELECT 
 	player_ID,
     game_date,
+    player_team,
     opp_team,
     game_result,
     plate_app,
@@ -75,8 +79,8 @@ FROM megatable;
 
 DROP TABLE IF EXISTS uncommon_player_stats_by_game;
 CREATE TABLE IF NOT EXISTS uncommon_player_stats_by_game(
-	player_ID VARCHAR(20) PRIMARY KEY,
-    game_date VARCHAR(20) PRIMARY KEY,
+	player_ID VARCHAR(20),
+    game_date VARCHAR(20),
 	sacrifice_hits TINYINT UNSIGNED,
     sacrifice_flies TINYINT UNSIGNED,
     reached_on_error TINYINT UNSIGNED,
@@ -90,7 +94,7 @@ CREATE TABLE IF NOT EXISTS uncommon_player_stats_by_game(
     position VARCHAR(3),
     draftkings_fantasy DECIMAL(5,2),
     fanduel_fantasy DECIMAL(5,2),
-    player_team CHAR(3)
+    PRIMARY KEY (player_ID, game_date)
 );
 
 INSERT INTO uncommon_player_stats_by_game(
@@ -108,8 +112,7 @@ INSERT INTO uncommon_player_stats_by_game(
     batting_order_position,
     position,
     draftkings_fantasy,
-    fanduel_fantasy,
-    player_team
+    fanduel_fantasy
 )
 SELECT 
 	player_ID,
@@ -126,8 +129,7 @@ SELECT
     batting_order_position,
     position,
     draftkings_fantasy,
-    fanduel_fantasy,
-    player_team
+    fanduel_fantasy
 FROM
 	megatable;
 
@@ -203,5 +205,6 @@ GROUP BY
 
 SELECT * FROM common_player_stats_by_game;
 SELECT * FROM uncommon_player_stats_by_game;
-SELECT * FROM player_career_stats;
+-- SELECT * FROM player_career_stats;
 SELECT * FROM player;
+SELECT * FROM megatable;

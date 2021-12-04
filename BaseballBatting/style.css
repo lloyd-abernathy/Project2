@@ -2,7 +2,7 @@ body {
     font-family: "Calibri Light", serif;
     font-size: 150%;
     color: black;
-    background: linear-gradient(45deg, lightcoral, lightgray 20%, lightpink) fixed;
+    background: linear-gradient(45deg, pink, lightgray 20%, lightpink) fixed;
     text-align: center;
     min-height: 100%;
     min-width: 100% ;
