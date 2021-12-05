@@ -2,28 +2,86 @@ body {
     font-family: "Calibri Light", serif;
     font-size: 150%;
     color: black;
-    background: linear-gradient(45deg, pink, lightgray 20%, lightpink) fixed;
-    text-align: center;
+    background: url("backgroundimagebaseball.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: left;
     min-height: 100%;
-    min-width: 100% ;
+    min-width: 100%;
 }
 
-#navbar {
+div#navbar {
     text-align: left;
     margin-top: 30px;
+    margin-left: 30px;
 }
 
 div#navbar li {
     list-style-type: none;
     display: inline;
     padding-right: 15px;
+    color: darkolivegreen;
 }
 
 div#navbar li a {
+    color: darkolivegreen;
     text-decoration: none;
+}
+
+h1, h2, h3, p, label, div {
+    text-align: left;
+    margin-left: 30px;
 }
 
 table {
     margin: 10px auto 10px auto;
     text-align: center;
+}
+
+div.outer {
+    width: 100%;
+    text-align: left;
+}
+
+div.choose {
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    opacity: 40%;
+    border: 1px solid black;
+    border-radius: 50px;
+    float: left;
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    padding: 30px;
+}
+
+div.choose:hover {
+    opacity: 80%;
+}
+
+div.results {
+    width: 450px;
+    background: transparent;
+    opacity: 40%;
+    border: 1px solid black;
+    border-radius: 50px;
+    float: left;
+    text-align: left;
+    padding: 30px;
+}
+
+div.results h6 {
+    margin: 5px;
+}
+
+div.results:hover {
+    opacity: 80%;
+}
+
+h6 {
+
 }
