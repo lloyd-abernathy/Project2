@@ -43,35 +43,39 @@ if (isset($_POST['field_submit'])) {
 <h1><b>Baseball Batting Database</b></h1>
 
 <form method="post">
-    <label for="leaderboard">All-Time Leaderboard: </label>
-    <select name="lb-type" id="leaderboard">
-        <option value="total_at_bat">At Bats</option>
-        <option value="total_hit">Hits</option>
-        <option value="total_homeruns">Home Runs</option>
-        <option value="total_RBIs">RBIs</option>
-    </select>
-    <input type="submit" name="field_submit" value="Submit">
+    <fieldset>
+        <p>Choose an all-time leaderboard statistic: </p>
+        <div class="input"><label for="leaderboard">All-Time Leaderboard: </label>
+            <select name="lb-type" id="leaderboard">
+                <option value="total_at_bat">At Bats</option>
+                <option value="total_hit">Hits</option>
+                <option value="total_homeruns">Home Runs</option>
+                <option value="total_RBIs">RBIs</option>
+            </select></div>
+        <br/>
+        <div class="input2"><input type="submit" name="field_submit" value="Submit"></div>
+    </fieldset>
 </form>
 <?php
 if (isset($_POST['field_submit'])) {
     if ($result && $prepared_stmt->rowCount() > 0) { ?>
         <div class="results"> Results:
-        <table>
-            <thead>
-            <tr>
-                <th>Player Name</th>
-                <th><?php echo $var_type; ?></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($result as $row) { ?>
+            <table>
+                <thead>
                 <tr>
-                    <td><?php echo $row["player_name"]; ?></td>
-                    <td><?php echo $row["$var_type"]; ?></td>
+                    <th>Player Name</th>
+                    <th><?php echo $var_type; ?></th>
                 </tr>
-            <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?php foreach ($result as $row) { ?>
+                    <tr>
+                        <td><?php echo $row["player_name"]; ?></td>
+                        <td><?php echo $row["$var_type"]; ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
         </div>
     <?php } else { ?>
         <h3>Sorry, no results were found.</h3>

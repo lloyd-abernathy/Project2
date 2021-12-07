@@ -25,12 +25,16 @@ div#navbar li {
     color: darkolivegreen;
 }
 
+div#navbar li:hover {
+    text-decoration: underline;
+}
+
 div#navbar li a {
     color: darkolivegreen;
     text-decoration: none;
 }
 
-h1, h2, h3, p, label, div {
+h1, h2, p, label, div {
     text-align: left;
     margin-left: 30px;
 }
@@ -64,12 +68,12 @@ div.choose:hover {
 }
 
 div.results {
-    width: 450px;
+    width: 425px;
     background: transparent;
     opacity: 40%;
     border: 1px solid black;
     border-radius: 50px;
-    float: left;
+    clear: left;
     text-align: left;
     padding: 30px;
 }
@@ -105,5 +109,14 @@ div.input {
 
 div.input2 {
     text-align: center;
+}
+
+div.question {
+    margin-top: 40px;
+    clear: left;
+}
+
+h3.question {
+    margin-left: unset;
 }
 

@@ -10,19 +10,20 @@ if (isset($_POST['field_submit'])) {
     try {
         $prepared_stmt = $dbo->prepare($query);
         $prepared_stmt->bindValue('p_name', $var_playername);
-        $_SESSION["game_date"]=$_POST["game_date"];
-        $_SESSION["player_team"]=$_POST["player_team"];
-        $_SESSION["opp_team"]=$_POST["opp_team"];
-        $_SESSION["points_scored"]=$_POST["points_scored"];
-        $_SESSION["opp_points_scored"]=$_POST["opp_points_scored"];
-        $_SESSION["game_result"]=$_POST["game_result"];
+        $_SESSION["game_date"] = $_POST["game_date"];
+        $_SESSION["player_team"] = $_POST["player_team"];
+        $_SESSION["opp_team"] = $_POST["opp_team"];
+        $_SESSION["points_scored"] = $_POST["points_scored"];
+        $_SESSION["opp_points_scored"] = $_POST["opp_points_scored"];
+        $_SESSION["game_result"] = $_POST["game_result"];
         $prepared_stmt->execute();
         $result = $prepared_stmt->fetchAll();
     } catch (PDOException $ex) {
         echo $sql . "<br>" . $error->getMessage();
     }
 }
-function onlyOnePlayer($playerid, $dbo) {
+function onlyOnePlayer($playerid, $dbo)
+{
     $var_playerID = $playerid;
 
     $query = "CALL create_entry(:p_id, :g_date, :p_team, :o_team, :p_score, :o_score, :g_result)";
@@ -45,6 +46,7 @@ function onlyOnePlayer($playerid, $dbo) {
     }
     output($result, $prepared_stmt);
 }
+
 ?>
 
 
@@ -71,19 +73,26 @@ function onlyOnePlayer($playerid, $dbo) {
     <fieldset>
         <p>Create a new game entry: </p>
         <div class="input"><label for="id_player">Player Name: </label>
-            <input type="text" name="player_name" id="id_player_name"></div><br />
+            <input type="text" name="player_name" id="id_player_name"></div>
+        <br/>
         <div class="input"><label for="id_game_date">Game Date (yyyy-mm-dd): </label>
-            <input type="text" name="game_date" id="id_game_date"></div><br />
+            <input type="text" name="game_date" id="id_game_date"></div>
+        <br/>
         <div class="input"><label for="id_player_team">Player Team: </label>
-            <input type="text" name="player_team" id="id_player_team" maxlength="3"></div><br />
+            <input type="text" name="player_team" id="id_player_team" maxlength="3"></div>
+        <br/>
         <div class="input"><label for="id_opp_team">Opposing Team: </label>
-            <input type="text" name="opp_team" id="id_opp_team" maxlength="3"></div><br />
+            <input type="text" name="opp_team" id="id_opp_team" maxlength="3"></div>
+        <br/>
         <div class="input"><label for="id_points_scored">Points Scored: </label>
-            <input type="text" name="points_scored" id="id_points_scored"></div><br />
+            <input type="text" name="points_scored" id="id_points_scored"></div>
+        <br/>
         <div class="input"><label for="id_opp_points_scored">Opposing Points Scored: </label>
-            <input type="text" name="opp_points_scored" id="id_opp_points_scored"></div><br />
+            <input type="text" name="opp_points_scored" id="id_opp_points_scored"></div>
+        <br/>
         <div class="input"><label for="id_game_result">Final Result (W or L): </label>
-            <input type="text" name="game_result" id="id_game_result"></div><br />
+            <input type="text" name="game_result" id="id_game_result"></div>
+        <br/>
 
         <div class="input2"><input type="submit" name="field_submit" value="Submit"></div>
     </fieldset>
@@ -91,8 +100,10 @@ function onlyOnePlayer($playerid, $dbo) {
 <?php
 if (isset($_POST['field_submit'])) {
     if ($result && $prepared_stmt->rowCount() > 1) { ?>
+        <br/>
+        <div class="question">
         <form method="post"></form>
-        <h3><b>Which player?</b></h3>
+        <h3 class="question"><b>Which player?</b></h3>
         <?php foreach ($result as $row) { ?>
             <form method="post" class="choose">
                 <div class="outer">
@@ -106,7 +117,7 @@ if (isset($_POST['field_submit'])) {
                     </div>
                 </div>
             </form>
-
+            </div>
         <?php } ?>
     <?php } else if ($result && $prepared_stmt->rowCount() == 1) {
         foreach ($result as $row) {
@@ -142,14 +153,11 @@ if (isset($_POST['sub_submit'])) {
     output($result, $prepared_stmt);
 }
 
-function output($result, $prepared_stmt) {
-    if ($result) { ?>
-        <div class="results"> Results:
-            <h6>Game entry successfully created.</h6>
-        </div>
-    <?php } else { ?>
-        <h3>Sorry, an error occurred.</h3>
-    <?php }
-} ?>
+function output($result, $prepared_stmt)
+{ ?>
+    <div class="results"> Results:
+        <h6>Game entry successfully created.</h6>
+    </div>
+<?php } ?>
 </body>
 </html>

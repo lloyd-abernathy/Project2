@@ -10,15 +10,16 @@ if (isset($_POST['field_submit'])) {
     try {
         $prepared_stmt = $dbo->prepare($query);
         $prepared_stmt->bindValue('p_name', $var_playername);
-        $_SESSION["game_date"]=$_POST["game_date"];
-        $_SESSION["plate_appearances"]=$_POST["plate_appearances"];
+        $_SESSION["game_date"] = $_POST["game_date"];
+        $_SESSION["plate_appearances"] = $_POST["plate_appearances"];
         $prepared_stmt->execute();
         $result = $prepared_stmt->fetchAll();
     } catch (PDOException $ex) {
         echo $sql . "<br>" . $error->getMessage();
     }
 }
-function onlyOnePlayer($playerid, $dbo) {
+function onlyOnePlayer($playerid, $dbo)
+{
     $var_playerID = $playerid;
 
     $query = "UPDATE common_player_stats_by_game SET plate_app = :plate_app WHERE player_ID = :p_id AND game_date = :g_date";
@@ -37,6 +38,7 @@ function onlyOnePlayer($playerid, $dbo) {
     }
     output($result, $prepared_stmt);
 }
+
 ?>
 
 <html lang="en">
@@ -73,11 +75,14 @@ function onlyOnePlayer($playerid, $dbo) {
         <div class="input2"><input type="submit" name="field_submit" value="Submit">
     </fieldset>
 </form>
+<br/>
 <?php
 if (isset($_POST['field_submit'])) {
     if ($result && $prepared_stmt->rowCount() > 1) { ?>
+        <br/>
+        <div class="question">
         <form method="post"></form>
-        <h3><b>Which player?</b></h3>
+        <h3 class="question"><b>Which player?</b></h3>
         <?php foreach ($result as $row) { ?>
             <form method="post" class="choose">
                 <div class="outer">
@@ -91,7 +96,7 @@ if (isset($_POST['field_submit'])) {
                     </div>
                 </div>
             </form>
-
+            </div>
         <?php } ?>
     <?php } else if ($result && $prepared_stmt->rowCount() == 1) {
         foreach ($result as $row) {
@@ -122,14 +127,11 @@ if (isset($_POST['sub_submit'])) {
     output($result, $prepared_stmt);
 }
 
-function output($result, $prepared_stmt) {
-    if ($result) { ?>
-        <div class="results"> Results:
-            <h6>Game entry successfully created.</h6>
-        </div>
-    <?php } else { ?>
-        <h3>Sorry, an error occurred.</h3>
-    <?php }
-} ?>
+function output($result, $prepared_stmt)
+{ ?>
+    <div class="results"> Results:
+        <h6>Game entry successfully updated.</h6>
+    </div>
+<?php } ?>
 </body>
 </html>

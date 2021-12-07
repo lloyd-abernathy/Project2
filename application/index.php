@@ -16,7 +16,8 @@ if (isset($_POST['field_submit'])) {
     }
 }
 
-function onlyOnePlayer($playerid, $dbo) {
+function onlyOnePlayer($playerid, $dbo)
+{
     $var_playerID = $playerid;
 
     $query = "CALL search_career(:p_id)";
@@ -31,6 +32,7 @@ function onlyOnePlayer($playerid, $dbo) {
     }
     output($result, $prepared_stmt);
 }
+
 ?>
 
 <html lang="en">
@@ -53,16 +55,20 @@ function onlyOnePlayer($playerid, $dbo) {
 <h1><b>Baseball Batting Database</b></h1>
 
 <form method="post">
-    <p>Search career data by player name: </p>
-    <label for="id_player">Player Name: </label>
-    <input type="text" name="player_name" id="id_player">
-    <input type="submit" name="field_submit" value="Submit">
+    <fieldset>
+        <p>Search career data by player name: </p>
+        <div class="input"><label for="id_player">Player Name: </label>
+            <input type="text" name="player_name" id="id_player"></div>
+        <br/>
+        <div class="input2"><input type="submit" name="field_submit" value="Submit"></div>
+    </fieldset>
 </form>
 <?php
 if (isset($_POST['field_submit'])) {
     if ($result && $prepared_stmt->rowCount() > 1) { ?>
+        <br/><div class="question">
         <form method="post"></form>
-        <h3><b>Which player?</b></h3>
+        <h3 class="question"><b>Which player?</b></h3>
         <?php foreach ($result as $row) { ?>
             <form method="post" class="choose">
                 <div class="outer">
@@ -76,7 +82,7 @@ if (isset($_POST['field_submit'])) {
                     </div>
                 </div>
             </form>
-
+            </div>
         <?php } ?>
     <?php } else if ($result && $prepared_stmt->rowCount() == 1) {
         foreach ($result as $row) {
@@ -104,7 +110,8 @@ if (isset($_POST['sub_submit'])) {
     output($result, $prepared_stmt);
 }
 
-function output($result, $prepared_stmt) {
+function output($result, $prepared_stmt)
+{
     if ($result && $prepared_stmt->rowCount() > 0) { ?>
         <div class="results"> Results:
             <?php foreach ($result as $row) { ?>
