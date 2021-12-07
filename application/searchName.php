@@ -1,3 +1,5 @@
+<!---NOTE: This file is not part of the final front-end application, just for testing purposes.  --->
+
 <?php
 if (isset($_POST['field_submit'])) {
     require_once("conn.php");

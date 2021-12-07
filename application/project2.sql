@@ -52,9 +52,9 @@ IGNORE 1 LINES;
 -- LINES TERMINATED BY '\r\n'
 -- IGNORE 1 LINES;
 
-SELECT *
-FROM megatable
-ORDER BY game_date DESC;
+-- SELECT *
+-- FROM megatable
+-- ORDER BY game_date DESC;
 
 -- Removing duplicate rows from megatable
 DROP TABLE IF EXISTS nodupes;
@@ -124,7 +124,7 @@ BEGIN
     total_runs, total_hits, total_doubles, total_triples, total_homeruns, total_RBIS, total_strikeouts, total_walks, batting_average;
 END //
 DELIMITER ;
-CALL search_career('altuvjo01');
+-- CALL search_career('altuvjo01');
 
 
 -- Views for Leaderboard Display
@@ -156,10 +156,10 @@ FROM common_player_stats_by_game
 GROUP BY player_ID
 ORDER BY total_RBIs DESC;
 
-SELECT * FROM atbatsLB;
-SELECT * FROM hitsLB;
-SELECT * FROM homerunsLB;
-SELECT * FROM RBIsLB;
+-- SELECT * FROM atbatsLB;
+-- SELECT * FROM hitsLB;
+-- SELECT * FROM homerunsLB;
+-- SELECT * FROM RBIsLB;
 
 
 -- Triggers for player deletions
@@ -191,9 +191,7 @@ DELIMITER ;
 -- select * from common_player_stats_by_game where player_ID = "rosepe01";
 
 
-
-
--- Stored Procedure to create new game entry based on player_id
+-- Stored Procedure to create new game entry based on player_id, game_date, and other attributes
 DELIMITER //
 DROP PROCEDURE IF EXISTS create_entry //
 CREATE PROCEDURE create_entry(IN ID VARCHAR(20), IN gamedate VARCHAR(20), IN playerteam CHAR(3), IN opposingteam CHAR(3), 
@@ -208,19 +206,12 @@ BEGIN
     
 END //
 DELIMITER ;
-CALL create_entry('abbotco01', '2022-01-01', 'HOU', 'ATL', 4, 5, 'L');
+-- CALL create_entry('abbotco01', '2022-01-01', 'HOU', 'ATL', 4, 5, 'L');
+-- select * from common_player_stats_by_game where game_date = '2022-01-01';
+-- delete from common_player_stats_by_game where player_ID = 'abbotco01' and game_date = '2022-01-01';
 
-
-
-select * from common_player_stats_by_game where game_date = '2022-01-01';
-
-select count(*) from megatable;
-select count(*) from common_player_stats_by_game;
-select count(*) from uncommon_player_stats_by_game;
-select count(*) from player;
-select * from megatable order by game_date desc;
-
-SELECT current_date();
-select * from common_player_stats_by_game group by player_ID having count(*) = 2;
-select * from common_player_stats_by_game where player_ID = 'abbotco01';
-delete from common_player_stats_by_game where player_ID = 'abbotco01' and game_date = '2022-01-01';
+-- select count(*) from megatable;
+-- select count(*) from common_player_stats_by_game;
+-- select count(*) from uncommon_player_stats_by_game;
+-- select count(*) from player;
+-- select * from megatable order by game_date desc;

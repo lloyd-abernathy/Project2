@@ -1,3 +1,5 @@
+-- Note: not used in final front-end application
+
 DELIMITER //
 CREATE PROCEDURE search_player(IN player_input TEXT)
 Begin 
