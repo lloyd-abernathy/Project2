@@ -208,6 +208,7 @@ END //
 DELIMITER ;
 -- CALL create_entry('abbotco01', '2022-01-01', 'HOU', 'ATL', 4, 5, 'L');
 -- select * from common_player_stats_by_game where game_date = '2022-01-01';
+-- select * from common_player_stats_by_game where game_date = '2222-05-04';
 -- delete from common_player_stats_by_game where player_ID = 'abbotco01' and game_date = '2022-01-01';
 
 -- select count(*) from megatable;
@@ -215,3 +216,4 @@ DELIMITER ;
 -- select count(*) from uncommon_player_stats_by_game;
 -- select count(*) from player;
 -- select * from megatable order by game_date desc;
+-- select distinct player_ID from player where player_name = 'John Sullivan';
