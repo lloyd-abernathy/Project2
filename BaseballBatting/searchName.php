@@ -28,7 +28,6 @@ if (isset($_POST['field_submit'])) {
 <body>
 <div id="navbar">
     <ul>
-        <li><a href="index.html">Home</a></li>
         <li><a href="searchName.php">Search by Player</a></li>
         <li><a href="searchDate.php">Search by Date</a></li>
     </ul>

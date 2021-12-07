@@ -35,6 +35,8 @@ if (isset($_POST['field_submit'])) {
         <li><a href="index.php">Home</a></li>
         <li><a href="leaderboard.php">Leaderboard</a></li>
         <li><a href="deletePlayer.php">Delete Player</a></li>
+        <li><a href="insertGame.php">Insert Game</a></li>
+        <li><a href="updateGame.php">Update Game</a></li>
     </ul>
 </div>
 

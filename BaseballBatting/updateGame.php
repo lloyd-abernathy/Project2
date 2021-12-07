@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("conn.php");
 if (isset($_POST['field_submit'])) {
     $var_playername = $_POST['player_name'];
@@ -9,6 +10,8 @@ if (isset($_POST['field_submit'])) {
     try {
         $prepared_stmt = $dbo->prepare($query);
         $prepared_stmt->bindValue('p_name', $var_playername);
+        $_SESSION["game_date"]=$_POST["game_date"];
+        $_SESSION["plate_appearances"]=$_POST["plate_appearances"];
         $prepared_stmt->execute();
         $result = $prepared_stmt->fetchAll();
     } catch (PDOException $ex) {
@@ -18,12 +21,15 @@ if (isset($_POST['field_submit'])) {
 function onlyOnePlayer($playerid, $dbo) {
     $var_playerID = $playerid;
 
-    $query = "SELECT player_ID, player_team, game_date FROM common_player_stats_by_game WHERE player_ID = :p_id";
-    // "DELETE FROM player WHERE player_ID = :p_id"
+    $query = "UPDATE common_player_stats_by_game SET plate_app = :plate_app WHERE player_ID = :p_id AND game_date = :g_date";
 
     try {
         $prepared_stmt = $dbo->prepare($query);
-        $prepared_stmt->bindValue('p_id', $var_playerID);
+        $prepared_stmt->bindValue('p_id', $var_playerID, PDO::PARAM_STR);
+        $prepared_stmt->bindValue('g_date', $_SESSION['game_date'], PDO::PARAM_STR);
+        $prepared_stmt->bindValue('plate_app', $_SESSION['plate_appearances'], PDO::PARAM_INT);
+
+
         $prepared_stmt->execute();
         $result = $prepared_stmt->fetchAll();
     } catch (PDOException $ex) {
@@ -53,10 +59,19 @@ function onlyOnePlayer($playerid, $dbo) {
 <h1><b>Baseball Batting Database</b></h1>
 
 <form method="post">
-    <p>Delete career data by player name: </p>
-    <label for="id_player">Player Name: </label>
-    <input type="text" name="player_name" id="id_player">
-    <input type="submit" name="field_submit" value="Submit">
+    <fieldset>
+        <p>Update game data by player name: </p>
+        <div class="input"><label for="id_player">Player Name: </label>
+            <input type="text" name="player_name" id="id_player"></div>
+        <br/>
+        <div class="input"><label for="id_game_date">Game Date: </label>
+            <input type="text" name="game_date" id="id_game_date"></div>
+        <br/>
+        <div class="input"><label for="id_plate_app">Plate Appearances: </label>
+            <input type="text" name="plate_appearances" id="id_plate_app"></div>
+        <br/>
+        <div class="input2"><input type="submit" name="field_submit" value="Submit">
+    </fieldset>
 </form>
 <?php
 if (isset($_POST['field_submit'])) {
@@ -91,12 +106,14 @@ if (isset($_POST['field_submit'])) {
 if (isset($_POST['sub_submit'])) {
     $var_playerID = $_POST['player_id'];
 
-    $query = "SELECT player_ID, player_team, game_date FROM common_player_stats_by_game WHERE player_ID = :p_id";
-    // "DELETE FROM player WHERE player_ID = :p_id"
+    $query = "UPDATE common_player_stats_by_game SET plate_app = :plate_app WHERE player_ID = :p_id AND game_date = :g_date";
 
     try {
         $prepared_stmt = $dbo->prepare($query);
-        $prepared_stmt->bindValue('p_id', $var_playerID);
+        $prepared_stmt->bindValue('p_id', $var_playerID, PDO::PARAM_STR);
+        $prepared_stmt->bindValue('g_date', $_SESSION['game_date'], PDO::PARAM_STR);
+        $prepared_stmt->bindValue('plate_app', $_SESSION['plate_appearances'], PDO::PARAM_INT);
+
         $prepared_stmt->execute();
         $result = $prepared_stmt->fetchAll();
     } catch (PDOException $ex) {
@@ -108,7 +125,7 @@ if (isset($_POST['sub_submit'])) {
 function output($result, $prepared_stmt) {
     if ($result) { ?>
         <div class="results"> Results:
-            <h6>Player's career stats successfully deleted.</h6>
+            <h6>Game entry successfully created.</h6>
         </div>
     <?php } else { ?>
         <h3>Sorry, an error occurred.</h3>

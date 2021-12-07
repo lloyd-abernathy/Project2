@@ -15,20 +15,6 @@ if (isset($_POST['field_submit'])) {
         echo $sql . "<br>" . $error->getMessage();
     }
 }
-if (isset($_POST['sub_submit'])) {
-    $var_playerID = $_POST['player_id'];
-
-    $query = "CALL search_career(:p_id)";
-
-    try {
-        $prepared_stmt = $dbo->prepare($query);
-        $prepared_stmt->bindValue('p_id', $var_playerID);
-        $prepared_stmt->execute();
-        $result = $prepared_stmt->fetchAll();
-    } catch (PDOException $ex) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
-}
 
 function onlyOnePlayer($playerid, $dbo) {
     $var_playerID = $playerid;
@@ -59,6 +45,8 @@ function onlyOnePlayer($playerid, $dbo) {
         <li><a href="index.php">Home</a></li>
         <li><a href="leaderboard.php">Leaderboard</a></li>
         <li><a href="deletePlayer.php">Delete Player</a></li>
+        <li><a href="insertGame.php">Insert Game</a></li>
+        <li><a href="updateGame.php">Update Game</a></li>
     </ul>
 </div>
 
@@ -101,29 +89,21 @@ if (isset($_POST['field_submit'])) {
 
 <?php
 if (isset($_POST['sub_submit'])) {
-    if ($result && $prepared_stmt->rowCount() > 0) { ?>
-    <div class="results"> Results:
-       <?php foreach ($result as $row) { ?>
-            <h6>Player Name: <?php echo $row["player_name_"]; ?></h6>
-            <h6>First Game Date: <?php echo $row["first_game_date"]; ?></h6>
-            <h6>Last Game Date: <?php echo $row["last_game_date"]; ?></h6>
-            <h6>Total Plate Appearances: <?php echo $row["total_plate_app"]; ?></h6>
-            <h6>Total At Bats: <?php echo $row["total_at_bat"]; ?></h6>
-            <h6>Total Runs: <?php echo $row["total_runs"]; ?></h6>
-            <h6>Total Hits: <?php echo $row["total_hits"]; ?></h6>
-            <h6>Total Doubles: <?php echo $row["total_doubles"]; ?></h6>
-            <h6>Total Triples: <?php echo $row["total_triples"]; ?></h6>
-            <h6>Total Homeruns: <?php echo $row["total_homeruns"]; ?></h6>
-            <h6>Total RBIS: <?php echo $row["total_RBIS"]; ?></h6>
-            <h6>Total Strikeouts: <?php echo $row["total_strikeouts"]; ?></h6>
-            <h6>Total Walks: <?php echo $row["total_walks"]; ?></h6>
-            <h6>Batting Average: <?php echo $row["batting_average"]; ?></h6>
-        <?php } ?>
-    </div>
-    <?php } else { ?>
-        <h3>Sorry, an error occurred.</h3>
-    <?php }
+    $var_playerID = $_POST['player_id'];
+
+    $query = "CALL search_career(:p_id)";
+
+    try {
+        $prepared_stmt = $dbo->prepare($query);
+        $prepared_stmt->bindValue('p_id', $var_playerID);
+        $prepared_stmt->execute();
+        $result = $prepared_stmt->fetchAll();
+    } catch (PDOException $ex) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+    output($result, $prepared_stmt);
 }
+
 function output($result, $prepared_stmt) {
     if ($result && $prepared_stmt->rowCount() > 0) { ?>
         <div class="results"> Results:
@@ -137,7 +117,7 @@ function output($result, $prepared_stmt) {
                 <h6>Total Hits: <?php echo $row["total_hits"]; ?></h6>
                 <h6>Total Doubles: <?php echo $row["total_doubles"]; ?></h6>
                 <h6>Total Triples: <?php echo $row["total_triples"]; ?></h6>
-                <h6>Total Homeruns: <?php echo $row["total_homeruns"]; ?></h6>
+                <h6>Total Home Runs: <?php echo $row["total_homeruns"]; ?></h6>
                 <h6>Total RBIS: <?php echo $row["total_RBIS"]; ?></h6>
                 <h6>Total Strikeouts: <?php echo $row["total_strikeouts"]; ?></h6>
                 <h6>Total Walks: <?php echo $row["total_walks"]; ?></h6>
